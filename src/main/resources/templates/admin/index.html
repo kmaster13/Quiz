@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Вопросы</title>
+</head>
+<body>
+<p style="font-size: 24px;">Все вопросы:</p>
+<div th:each="question,state : ${questions}">
+    <a style="font-size: 50px" th:text="${state.count + ')' + question.getTitle()}">Title</a>
+    <form th:action="@{/admin-page/{id}(id=${question.getId()})}">
+        <input type="submit" value="Перейти к вопросу">
+    </form>
+    <hr/>
+</div>
+<form th:action="@{/admin-page/new}">
+    <input type="submit" value="Добавить вопрос">
+</form>
+<hr/>
+<p style="font-size: 24px;">Статистика:</p>
+<a>Количество выбранных ответов на вопросы:</a>
+<a th:text="${countAllResponses}">count</a>
+<br/>
+<a>Количество правильных выбранных ответов на вопросы:</a>
+<a th:text="${countAllTrueResponses}">count</a>
+<br/>
+<a>Наибольшее кол-во правильных ответов дал пользователь - </a>
+<a th:text="${personWithMaxCountTrueResponses.getEmail()} + '.'">person</a>
+<a>Его кол-во правильных ответов - </a>
+<a th:text="${countPersonMaxTrueResponses}+'.'">count</a>
+<br/>
+<a>Наименьшее кол-во правильных ответов дал пользователь - </a>
+<a th:text="${personWithMinCountTrueResponses.getEmail()} +'.'">person</a>
+<a>Его кол-во правильных ответов - </a>
+<a th:text="${countPersonMinTrueResponses}+'.'">count</a>
+<br/>
+<a>Самый сложный вопрос - </a>
+<a th:text="${hardQuestion.getTitle()}">Question</a>
+<a>Кол-во ошибок в нём - </a>
+<a th:text="${countFalseResponsesInHardQuestion} +'.'">Count</a>
+</body>
+</html>

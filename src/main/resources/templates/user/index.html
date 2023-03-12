@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Опросник</title>
+</head>
+<body>
+<a style="font-size: 32px;" th:text="'Привет '+ ${person.getEmail()} + ', список доступных вопросов:'"></a>
+<div th:each="question,state : ${questions}">
+    <form th:method="POST" th:action="@{/user-page/{id}(id=${person.getId()})}" th:object="${quest}">
+        <a style="font-size: 50px" th:text="${state.count + ')' + question.getTitle()}">Title</a>
+        <hr/>
+        <div th:each="answer,state : ${question.getAnswers()}">
+            <a th:text="${state.count + ')' + answer.getName()}">answer</a>
+            <input type="checkbox" th:field="*{answers[__${state.index}__].id}" th:value="${answer.getId()}">
+            <hr/>
+        </div>
+        <input type="submit" value="Отправить результат"/>
+    </form>
+</div>
+</body>
+</html>

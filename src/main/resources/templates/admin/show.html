@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Вопрос</title>
+</head>
+<body>
+<p>Название вопроса:</p>
+<a style="font-size: 50px" th:text="${question.getTitle()}">Title</a>
+<form style="display: inline-block;" th:action="@{/admin-page/{id}/edit(id=${question.getId()})}">
+    <input type="submit" value="Редактирование вопроса">
+</form>
+<form style="display: inline-block;" th:method="DELETE" th:action="@{/admin-page/{id}(id=${question.getId()})}">
+    <input type="submit" value="Удаление вопроса"/>
+</form>
+<p>Ответы:</p>
+<div th:each="answer,state : ${answers}">
+    <hr/>
+    <a th:text="${state.count + ')' + answer.getName()}">answer</a>
+    <br/>
+    <a th:if="${answer.getFlag() == true}">Ответ верный</a>
+    <a th:unless="${answer.getFlag() == true}">Ответ неверный</a>
+    <form style="display: inline-block;" th:method="DELETE"
+          th:action="@{/admin-page/{id}/{aId}(id=${question.getId()}, aId=${answer.getId()})}">
+        <input type="submit" value="Удаление ответа"/>
+    </form>
+    <br/>
+</div>
+<hr/>
+<br/>
+<form th:action="@{/admin-page/{id}/new_answer(id=${question.getId()})}">
+    <input type="submit" value="Добавление ответа">
+</form>
+<br/>
+<form th:action="@{/admin-page}">
+    <input type="submit" value="Вернуться на страницу с вопросами">
+</form>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователь</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/user-page}" th:object="${person}">
+    <label for="email">Введите свой email: </label>
+    <input type="text" th:field="*{email}" id="email">
+    <br/>
+    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+    <input type="submit" value="Отправить результат"/>
+</form>
+</body>
+</html>

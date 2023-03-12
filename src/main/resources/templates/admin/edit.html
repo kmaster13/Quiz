@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование вопроса</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/admin-page/{id}(id=${question.getId()})}" th:object="${question}">
+    <label for="title">Введите название вопроса: </label>
+    <input type="text" th:field="*{title}" id="title"/>
+    <hr/>
+    <div th:each="answer,state : ${question.getAnswers()}">
+        <input type="hidden" th:field="*{answers[__${state.index}__].id}">
+        <label for="name">Введите название ответа на вопрос: </label>
+        <input type="text" th:field="*{answers[__${state.index}__].name}" id="name"/>
+        <label for="true">Верность ответа:</label>
+        <input type="checkbox" th:field="*{answers[__${state.index}__].flag}" th:value="true" id="true">
+        <br/>
+    </div>
+    <input type="submit" value="Изменить"/>
+</form>
+</body>
+</html>

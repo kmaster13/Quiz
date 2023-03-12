@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование ответов</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/admin-page/{id}/{aId}/edit_answer(id=${question.getId()}, aId=${answer.getId()})}" th:object="${answer}">
+    <label for="name">Введите название ответа на вопрос: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="true">Верность ответа:</label>
+    <input type="checkbox" th:field="*{flag}" th:value="true" id="true">
+    <hr/>
+    <input type="submit" value="Отредактировать"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый ответ на вопрос</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/admin-page/{id}/new_answer(id=${question.getId()})}" th:object="${answer}">
+    <label for="name">Введите название ответа на вопрос: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="true">Верность ответа:</label>
+    <input type="checkbox" th:field="*{flag}" th:value="true" id="true">
+    <hr/>
+    <input type="submit" value="Добавить"/>
+</form>
+</body>
+</html>
