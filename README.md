@@ -21,4 +21,8 @@ PersonAnswer - связывающая таблица отношения ManyToMa
 
 ![image](https://user-images.githubusercontent.com/81090666/225129757-92a5c9a1-eedb-4bbd-9c03-8a87fa8a185b.png)
 
+Диаграмма базы данных:
+
+![image](https://user-images.githubusercontent.com/81090666/225134496-bb66d58e-33ea-408b-844a-646f0d23c5ba.png)
+
 Планируется добавить Spring Security, JDBCTemplate заменить на Hibernate. Также необходимо доработать некоторые методы и добавить тестирование. 
