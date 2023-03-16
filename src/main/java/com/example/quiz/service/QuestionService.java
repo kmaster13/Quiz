@@ -25,9 +25,6 @@ public class QuestionService {
     private final AnswerDAO answerDAO;
 
     @Autowired
-    private final PersonDAO personDAO;
-
-    @Autowired
     private final PersonAnswerDAO personAnswerDAO;
 
     public List<Question> showAllQuestions() {
@@ -35,24 +32,8 @@ public class QuestionService {
     }
 
     public List<Question> showAllQuestionsWithListForPerson(long id) {
-        List<PersonAnswer> listAnswersForRemoving = personAnswerDAO.findByPerson(id);
-        List<Question> listAllQuestions = questionDAO.index();
-        List<Question> listQuestions = new ArrayList<>();
 
-        boolean flag = false;
-        for (int i = 0; i < listAllQuestions.size(); i++) {
-            for (int j = 0; j < listAnswersForRemoving.size(); j++) {
-                long tempId = answerDAO.showAnswer(listAnswersForRemoving.get(j).getAnswerId()).getQuestionId();
-                if (tempId == listAllQuestions.get(i).getId()) {
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                listQuestions.add(listAllQuestions.get(i));
-            }
-            flag = false;
-        }
+        List<Question> listQuestions = questionDAO.listWithoutResponses(id);
 
         for (Question question : listQuestions) {
             question.setAnswers(answerDAO.showAnswersByQuestion(question.getId()));

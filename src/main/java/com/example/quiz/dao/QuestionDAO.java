@@ -19,6 +19,12 @@ public class QuestionDAO {
         return jdbcTemplate.query("SELECT * FROM question", new BeanPropertyRowMapper<>(Question.class));
     }
 
+    public List<Question> listWithoutResponses(long personId) {
+        return jdbcTemplate.query("SELECT * FROM QUESTION WHERE NOT EXISTS " +
+                "(SELECT QUESTION_ID FROM ANSWER JOIN PERSONANSWER ON ANSWER.id = PERSONANSWER.ANSWER_ID " +
+                "WHERE QUESTION.ID = QUESTION_ID AND PERSON_ID=?)", new Object[]{personId}, new BeanPropertyRowMapper<>(Question.class));
+    }
+
     public Question show(long id) {
         return jdbcTemplate.query("SELECT * FROM Question WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Question.class))
                 .stream().findAny().orElse(null);
